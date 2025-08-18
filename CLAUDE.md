@@ -16,22 +16,30 @@ cargo build
 # Run with logging
 cargo run -- --help
 
-# Run tests
-cargo test
+# TDD Commands
+cargo test                              # Run all tests
+cargo test --all-features              # Run tests with all features
+cargo tarpaulin --out html             # Generate coverage report
+cargo tarpaulin --fail-under 100       # Enforce 100% coverage
+cargo watch -x test                    # Continuous testing
 
-# Check for issues
+# Quality checks
 cargo check
-cargo clippy
+cargo clippy -- -D warnings
+cargo fmt --check
 ```
 
 ## Development Log
 
-### 2025-08-18 - Initial Planning
+### 2025-08-18 - Initial Planning & TDD Setup
 - ✅ Created project structure and documentation
 - ✅ Researched cross-platform dependencies
 - ✅ Designed modular architecture with 6 implementation phases
 - ✅ Documented security considerations and network protocol
-- 📝 **Next**: Begin Phase 1 - Core Dependencies & Project Setup
+- ✅ Established comprehensive TDD strategy with 100% coverage requirement
+- ✅ Created detailed testing structure (unit/integration/e2e tests)
+- ✅ Defined property-based testing and security test requirements
+- 📝 **Next**: Begin Phase 1 - Core Dependencies & Project Setup (TDD-first)
 
 ## Current Issues & Solutions
 
@@ -76,12 +84,23 @@ cargo clippy
 - ⏳ Core dependencies need to be added
 - ⏳ Platform-specific crates need research
 - ⏳ Module structure needs creation
+- ⏳ Testing dependencies need to be added (tarpaulin, proptest, mockall)
+
+## TDD Requirements
+- **Coverage Target**: 100% line coverage (enforced)
+- **Test Structure**: unit/ integration/ e2e/ fixtures/
+- **Mock Strategy**: Platform abstraction with MockPlatform trait
+- **Property Testing**: Input validation and security fuzzing
+- **CI Integration**: Cross-platform testing on GitHub Actions
+- **Pre-commit Hooks**: Enforce tests pass and coverage ≥100%
 
 ## Testing Strategy
-- Unit tests for core functionality
-- Integration tests for cross-platform compatibility
-- Security testing for network components
-- Performance testing for screen capture
+- **Red-Green-Refactor**: Strict TDD workflow for all features
+- **Unit Tests**: 100% function coverage for all modules
+- **Integration Tests**: Component interaction testing
+- **E2E Tests**: Complete workflow and performance testing
+- **Security Tests**: Auth, input validation, rate limiting
+- **Property Tests**: Fuzz testing with arbitrary inputs
 
 ## Deployment Considerations
 - Binary distribution for each platform
