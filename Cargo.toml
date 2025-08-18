@@ -4,3 +4,47 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+# Core functionality
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+clap = { version = "4.0", features = ["derive"] }
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Input/Output control
+enigo = "0.2"
+screenshots = "0.5"
+
+# Network communication
+tokio-tungstenite = "0.21"
+futures-util = "0.3"
+
+# Testing support
+mockall = "0.12"
+
+# Platform-specific dependencies
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["winuser", "wingdi", "windef"] }
+windows = { version = "0.52", features = ["Win32_UI_WindowsAndMessaging", "Win32_Graphics_Gdi"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+core-graphics = "0.23"
+cocoa = "0.25"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+x11 = { version = "2.21", features = ["xlib", "xinput"] }
+
+[dev-dependencies]
+# Testing framework
+proptest = "1.4"
+mockall = "0.12"
+tokio-test = "0.4"
+criterion = { version = "0.5", features = ["html_reports"] }
+tempfile = "3.8"
+serial_test = "3.0"
+
+[[bench]]
+name = "performance"
+harness = false

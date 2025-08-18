@@ -1,0 +1,27 @@
+[licenses]
+copyleft = "deny"
+allow-osi-fsf-free = "both"
+default = "deny"
+confidence-threshold = 0.8
+
+[[licenses.exceptions]]
+allow = ["Unicode-DFS-2016"]
+name = "unicode-ident"
+
+[bans]
+multiple-versions = "warn"
+skip-tree = [
+    { name = "windows-sys" },
+    { name = "windows" },
+]
+
+[advisories]
+vulnerability = "deny"
+unmaintained = "warn"
+notice = "warn"
+ignore = []
+
+[sources]
+unknown-registry = "warn"
+unknown-git = "warn"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

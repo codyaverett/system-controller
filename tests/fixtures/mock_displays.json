@@ -1,0 +1,20 @@
+[
+  {
+    "id": 0,
+    "name": "Primary Display",
+    "width": 1920,
+    "height": 1080,
+    "x": 0,
+    "y": 0,
+    "is_primary": true
+  },
+  {
+    "id": 1,
+    "name": "Secondary Display",
+    "width": 1440,
+    "height": 900,
+    "x": 1920,
+    "y": 0,
+    "is_primary": false
+  }
+]

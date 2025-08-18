@@ -1,0 +1,42 @@
+{
+  "valid_commands": [
+    {
+      "id": "cmd-001",
+      "type": "mouse_move",
+      "payload": { "x": 100, "y": 200 },
+      "timestamp": "2025-08-18T10:30:00Z"
+    },
+    {
+      "id": "cmd-002",
+      "type": "mouse_click",
+      "payload": { "button": "left", "x": 150, "y": 250 },
+      "timestamp": "2025-08-18T10:30:01Z"
+    },
+    {
+      "id": "cmd-003",
+      "type": "key_press",
+      "payload": { "key": "Enter" },
+      "timestamp": "2025-08-18T10:30:02Z"
+    },
+    {
+      "id": "cmd-004",
+      "type": "type_text",
+      "payload": { "text": "Hello World" },
+      "timestamp": "2025-08-18T10:30:03Z"
+    }
+  ],
+  "invalid_commands": [
+    {
+      "id": "invalid-001",
+      "type": "unknown_command",
+      "payload": {},
+      "timestamp": "2025-08-18T10:30:04Z"
+    },
+    {
+      "id": "invalid-002",
+      "type": "mouse_move",
+      "payload": { "x": "not_a_number", "y": 200 },
+      "timestamp": "2025-08-18T10:30:05Z"
+    }
+  ]
+}
