@@ -22,6 +22,13 @@ screenshots = "0.5"
 tokio-tungstenite = "0.21"
 futures-util = "0.3"
 
+# Security and encryption
+jsonwebtoken = "7.2"
+uuid = { version = "0.8", features = ["v4", "serde"] }
+sha2 = "0.9"
+rand = "0.8"
+bcrypt = "0.13"
+
 # Testing support
 mockall = "0.12"
 
