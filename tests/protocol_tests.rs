@@ -61,17 +61,15 @@ mod tests {
     #[test]
     fn test_response_error_format() {
         let error_resp = Response {
-            id: "test-005".to_string(),
-            response_type: ResponseType::Error,
-            payload: ResponsePayload::Error {
-                code: "INVALID_COMMAND".to_string(),
-                message: "Command validation failed".to_string(),
-                details: serde_json::Value::Null,
-            },
+            command_id: "test-005".to_string(),
+            status: ResponseStatus::Error,
+            error: Some("Command validation failed".to_string()),
+            data: None,
             timestamp: "2025-08-18T10:30:00Z".to_string(),
         };
 
         let json = serde_json::to_string(&error_resp).expect("Failed to serialize error");
-        assert!(json.contains("INVALID_COMMAND"));
+        assert!(json.contains("\"error\""));
+        assert!(json.contains("Command validation failed"));
     }
 }

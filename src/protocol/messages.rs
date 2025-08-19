@@ -31,7 +31,7 @@ pub enum CommandPayload {
     #[serde(rename = "mouse_move")]
     MouseMove { x: i32, y: i32 },
     #[serde(rename = "mouse_click")]
-    MouseClick { button: String, x: i32, y: i32 },
+    MouseClick { button: crate::platform::traits::MouseButton, x: i32, y: i32 },
     #[serde(rename = "mouse_scroll")]
     MouseScroll { x: i32, y: i32 },
     #[serde(rename = "key_press")]
@@ -41,7 +41,7 @@ pub enum CommandPayload {
     #[serde(rename = "type_text")]
     TypeText { text: String },
     #[serde(rename = "capture_screen")]
-    CaptureScreen { display_id: Option<u32>, format: Option<String> },
+    CaptureScreen { display_id: u32 },
     #[serde(rename = "get_displays")]
     GetDisplays {},
     #[serde(rename = "get_window_info")]
@@ -52,39 +52,27 @@ pub enum CommandPayload {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Response {
-    pub id: String,
-    #[serde(rename = "type")]
-    pub response_type: ResponseType,
-    pub payload: ResponsePayload,
+    pub command_id: String,
+    pub status: ResponseStatus,
+    pub error: Option<String>,
+    pub data: Option<ResponseData>,
     pub timestamp: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum ResponseType {
+pub enum ResponseStatus {
     Success,
     Error,
-    ScreenCapture,
-    DisplayInfo,
-    WindowInfo,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum ResponsePayload {
-    #[serde(rename = "success")]
-    Success { message: String },
-    #[serde(rename = "error")]
-    Error {
-        code: String,
-        message: String,
-        details: serde_json::Value,
-    },
+pub enum ResponseData {
     #[serde(rename = "screen_capture")]
     ScreenCapture {
-        display_id: u32,
+        size: usize,
         format: String,
-        data: Vec<u8>,
     },
     #[serde(rename = "display_info")]
     DisplayInfo {
@@ -126,12 +114,9 @@ impl Command {
                     return Err(anyhow!("Mouse coordinates must be non-negative"));
                 }
             }
-            CommandPayload::MouseClick { x, y, button } => {
+            CommandPayload::MouseClick { x, y, .. } => {
                 if *x < 0 || *y < 0 {
                     return Err(anyhow!("Mouse coordinates must be non-negative"));
-                }
-                if !["left", "right", "middle"].contains(&button.as_str()) {
-                    return Err(anyhow!("Invalid mouse button: {}", button));
                 }
             }
             CommandPayload::KeyPress { key } | CommandPayload::KeyRelease { key } => {
