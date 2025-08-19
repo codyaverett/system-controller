@@ -2,6 +2,7 @@ use crate::platform::traits::*;
 use anyhow::{Result, anyhow};
 use std::time::Duration;
 use tokio::time::sleep;
+use serde::{Serialize, Deserialize};
 
 /// Display controller for managing screen capture and window information
 pub struct DisplayController {
@@ -192,7 +193,7 @@ impl ImageCompressor {
         }
     }
 
-    pub fn compress(&self, data: &[u8], width: u32, height: u32) -> Result<Vec<u8>> {
+    pub fn compress(&self, data: &[u8], _width: u32, _height: u32) -> Result<Vec<u8>> {
         match self.compression_type {
             CompressionType::PNG => {
                 // Mock PNG compression - return PNG signature + compressed data
@@ -224,7 +225,8 @@ impl ImageCompressor {
 }
 
 /// Compression type enumeration
-#[derive(Debug, Clone, Copy)]
+/// Compression type enumeration
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum CompressionType {
     PNG,
     JPEG,
