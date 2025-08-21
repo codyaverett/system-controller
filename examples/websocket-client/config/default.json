@@ -1,0 +1,34 @@
+{
+  "server": {
+    "host": "localhost",
+    "port": 8080,
+    "use_tls": false,
+    "verify_ssl": false
+  },
+  "auth": {
+    "username": "admin",
+    "password": "changeme123!"
+  },
+  "client": {
+    "reconnect": true,
+    "reconnect_interval": 1000,
+    "max_reconnect_attempts": 5,
+    "command_timeout": 30000,
+    "enable_compression": false
+  },
+  "logging": {
+    "level": "info",
+    "enable_colors": true,
+    "timestamp": true
+  },
+  "monitoring": {
+    "default_interval": 5,
+    "health_check_interval": 30,
+    "metrics_history_size": 1000
+  },
+  "benchmark": {
+    "default_iterations": 100,
+    "warmup_iterations": 10,
+    "parallel_tests": false
+  }
+}
